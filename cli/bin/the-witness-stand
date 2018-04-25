@@ -1,0 +1,51 @@
+#!/bin/bash
+
+BIN_DIR=$(dirname $0)
+ROOT=$BIN_DIR/..
+LIB_DIR=$ROOT/lib
+
+source $LIB_DIR/version.sh
+source $LIB_DIR/consts.sh
+source $LIB_DIR/usage.sh
+source $LIB_DIR/sandboxes.sh
+source $LIB_DIR/sandbox.sh
+
+while true; do
+  case "$1" in
+    -d|--download)
+      download_sandboxes
+      exit
+    ;;
+    -l|--list)
+      available_sandboxes
+      exit
+    ;;
+    -v|--version)
+      version
+      exit
+    ;;
+    -h|--help)
+      usage
+      exit
+    ;;
+    -*|--*)
+      echo Unknown option "$1".
+      usage
+      exit 2
+    ;;
+    *)
+      break
+    ;;
+  esac
+  shift
+done
+
+if [ $# != 2 ]; then
+  echo Wrong number of parameters.
+  usage
+  exit 1
+fi
+
+IMAGE=$DOCKER_IMAGE_PREFIX"$1"-sandbox$DOCKER_IMAGE_SUFFIX \
+  CONTAINER_NAME="$2" \
+  sandbox

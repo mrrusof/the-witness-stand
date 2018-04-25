@@ -1,0 +1,2 @@
+DOCKER_IMAGE_PREFIX=mrrusof/
+DOCKER_IMAGE_SUFFIX=:$(version)
