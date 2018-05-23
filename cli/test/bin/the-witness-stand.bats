@@ -6,16 +6,16 @@ function input_json {
 EOF
 }
 
-function expected_usage {
+function expected_usage_sandbox_container_params {
   input_json | the-witness-stand ruby my-ruby
+}
+
+function expected_usage_sandbox_param {
+  input_json | the-witness-stand ruby
 }
 
 function three_parameters {
   input_json | the-witness-stand ruby my-ruby garbage
-}
-
-function one_parameter {
-  input_json | the-witness-stand ruby
 }
 
 function no_parameter {
@@ -53,21 +53,25 @@ function docker {
   fi
 }
 
-@test "$TEST_SUITE: handles expected usage." {
-  run expected_usage
+@test "$TEST_SUITE: accepts a sandbox name and a container name." {
+  run expected_usage_sandbox_container_params
   actual_output=`echo $output | jshon -e actualOutput`
   echo \$output = $output
   [ $status = 0 ]
   [ "$actual_output" = '"hola\n"' ]
 }
 
-@test "$TEST_SUITE: expects two parametres." {
+@test "$TEST_SUITE: accepts a sandbox name." {
+  run expected_usage_sandbox_param
+  actual_output=`echo $output | jshon -e actualOutput`
+  echo \$output = $output
+  [ $status = 0 ]
+  [ "$actual_output" = '"hola\n"' ]
+}
+
+@test "$TEST_SUITE: does not work with less than one parameter or more than two." {
   msg='Wrong number of parameters.'
   run three_parameters
-  [ $status = 1 ]
-  matches "$output" "$msg"
-  has_usage "$output"
-  run one_parameter
   [ $status = 1 ]
   matches "$output" "$msg"
   has_usage "$output"

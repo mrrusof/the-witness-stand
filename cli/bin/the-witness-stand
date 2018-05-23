@@ -40,12 +40,15 @@ while true; do
   shift
 done
 
-if [ $# != 2 ]; then
+if [ $# = 1 ]; then
+  CONTAINER_NAME=`mktemp /tmp/"$1"-XXXXXXXXXX | sed 's#/tmp/##'`
+elif [ $# = 2 ]; then
+  CONTAINER_NAME="$2"
+else
   echo Wrong number of parameters.
   usage
   exit 1
 fi
+IMAGE=$DOCKER_IMAGE_PREFIX"$1"-sandbox$DOCKER_IMAGE_SUFFIX
 
-IMAGE=$DOCKER_IMAGE_PREFIX"$1"-sandbox$DOCKER_IMAGE_SUFFIX \
-  CONTAINER_NAME="$2" \
-  sandbox
+IMAGE="$IMAGE" CONTAINER_NAME="$CONTAINER_NAME" sandbox
