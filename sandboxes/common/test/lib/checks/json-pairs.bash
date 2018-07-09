@@ -16,7 +16,7 @@ function value_is {
 
 function value_like {
   [ -z "$2" ] && return 1
-  echo "$(get_value $1)" | grep "$2"
+  echo "$(get_value $1)" | grep "$2" >/dev/null 2>&1
 }
 
 function value {

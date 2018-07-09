@@ -2,6 +2,7 @@ function available_sandboxes {
   cat <<EOF
 binary
 c
+cpp
 elixir
 java
 javac
