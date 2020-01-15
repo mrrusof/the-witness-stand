@@ -1,3 +1,8 @@
+# 0.5.1 2020.01.15
+
+- Fix typo in usage.
+- Bump ruby-json version from 2.4.4-r0 to 2.4.6-r0 in base image.
+
 # 0.5.0 2018.07.09
 
 - Create C++ sandbox.
