@@ -1,10 +1,10 @@
 SHELL=/bin/bash
 
 ROOT=../..
-CHANGELOG=$(ROOT)/CHANGELOG.md
 
 DOCKERHUB_USER=mrrusof
-TAG ?= $(shell head -n 1 $(CHANGELOG) | sed -e 's/\# *//' -e 's/ \+/-/')
+VERSION != $(ROOT)/common/version.sh
+TAG ?= $(VERSION)
 IMAGE=$(DOCKERHUB_USER)/$(IMAGE_REPO):$(TAG)
 IMAGE_BUILD=$(DOCKERHUB_USER)/$(IMAGE_REPO):build
 
@@ -22,7 +22,7 @@ DOCKER_BTOKEN=$(BUILD_DIR)/docker.done
 all build: $(DOCKER_BTOKEN)
 
 $(DOCKER_BTOKEN): $(REQUIRE_IMAGES_DIRS) $(DOCKER_DEPS) | $(BUILD_DIR)
-	docker build -t $(IMAGE) -t $(IMAGE_BUILD) $(DOCKER_SRC_DIR)
+	docker build --tag $(IMAGE_BUILD) --tag $(IMAGE) $(DOCKER_SRC_DIR)
 	touch $@
 
 $(BUILD_DIR):
@@ -36,7 +36,7 @@ force:
 
 clean:
 	rm -rf $(BUILD_DIR)
-	docker rmi --force $(IMAGE)
+	docker rmi --force $(IMAGE) $(IMAGE_BUILD)
 	@echo ""
 
 .PHONY: all build clean force

@@ -5,7 +5,7 @@ LIB_DIR=lib
 BUILD_DIR=_build
 BIN_SRC=$(BIN_DIR)/the-witness-stand
 LIB_SRC=$(LIB_DIR)/*.sh
-VERSION=$(shell head -n 1 $(CHANGELOG) | sed -e 's/\# *//' -e 's/ \+/-/')
+VERSION ?= $(shell $(ROOT)/common/version.sh)
 VER_FILE=version
 TAR=$(BUILD_DIR)/the-witness-stand-$(VERSION).tar.gz
 
@@ -27,4 +27,4 @@ test: build
 clean:
 	rm -rf $(BUILD_DIR) $(VER_FILE)
 
-.PHONY: all buil test clean
+.PHONY: all build test clean

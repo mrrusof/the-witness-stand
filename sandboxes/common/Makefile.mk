@@ -15,7 +15,7 @@ test: build $(TESTS) | $(REQUIRE_SANDBOXES_DIRS)
 	@time IMAGE=$(IMAGE) bats $(TESTS)
 
 .SECONDEXPANSION:
-$(TEST_DIR)/%.bats: $$(shell INCLUDES_DIR=$$(TEST_INCLUDES_DIR) $(ROOT)/common/inline.rb --deps $(TEST_SRC_DIR)/$$*.bats) | $(TEST_DIR)
+$(TEST_DIR)/%.bats: $$(shell INCLUDES_DIR=$(TEST_INCLUDES_DIR) $(ROOT)/common/inline.rb --deps $(TEST_SRC_DIR)/$$*.bats) | $(TEST_DIR)
 	@INCLUDES_DIR=$(TEST_INCLUDES_DIR) $(ROOT)/common/inline.rb $< >$@
 
 $(TEST_DIR):
@@ -26,6 +26,11 @@ $(TODO_REQUIRE_SANDBOXES_DIRS): force
 	touch $@
 
 push: build
-	docker push $(IMAGE)
+	@if [ "$(TAG)" != unreleased ]; then \
+	  set -x; \
+	  docker push $(IMAGE); \
+	else \
+	  echo Tag is unreleased, skip pushing image.; \
+	fi
 
-.PHONY: test
+.PHONY: push test

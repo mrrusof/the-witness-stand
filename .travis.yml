@@ -7,4 +7,4 @@ before_install:
   - sudo apt-get install -y jshon
 
 script:
-  - make test login push
+  - make clean test login push
