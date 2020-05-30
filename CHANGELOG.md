@@ -1,5 +1,6 @@
-# 0.5.1 2020.01.15
+# 0.5.1 2020.05.30
 
+- Fix C and C++ compile tests.
 - Fix typo in usage.
 - Bump ruby-json version from 2.4.4-r0 to 2.4.6-r0 in base image.
 

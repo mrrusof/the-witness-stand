@@ -1,7 +1,6 @@
 #inline ../output.bash
 
 function json_pair_count_is {
-  out_json
   [ "$(out_json | jshon -l)" = "$1" ]
 }
 
@@ -11,7 +10,15 @@ function get_value {
 
 function value_is {
   [ $# = 2 ] || return 1
-  [ "$(get_value $1)" = "$2" ]
+  value="$(get_value $1)"
+  if [ "$value" = "$2" ]; then
+    return 0
+  else
+    echo value $1 is '<expected>':
+    echo $1 = "$value"
+    echo expected = "$2"
+    return 1
+  fi
 }
 
 function value_like {

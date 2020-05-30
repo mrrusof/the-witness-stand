@@ -5,7 +5,7 @@ test:
 	$(MAKE) $(addprefix $@-,sandboxes cli)
 
 login:
-	docker login -u mrrusof -p $$DOCKER_PWD
+	echo $$DOCKER_PWD | docker login -u mrrusof --password-stdin
 
 push: push-sandboxes
 
