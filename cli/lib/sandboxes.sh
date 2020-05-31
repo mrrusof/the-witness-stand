@@ -1,8 +1,9 @@
 function available_sandboxes {
   cat <<EOF
-binary
 c
+c-binary
 cpp
+cpp-binary
 elixir
 java
 javac
