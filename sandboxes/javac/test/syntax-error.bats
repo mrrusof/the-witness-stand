@@ -1,21 +1,22 @@
-#inline $INCLUDES_DIR/return-compile.bats
+#inline $INCLUDES_DIR/test-templates/well-formed-compile-output-json.bats
 
-function input_source {
-  cat <<EOF
+source_program=$(cat <<"EOF"
 public class Main {
   public static void main(String[] a) {
     System.out.println("hola")
   }
 }
 EOF
-}
+)
 
-function expected_output {
-  echo null
-}
+expected_exit_code=1
 
-function expected_stderr {
-  echo -en "/tmp/Main.java:3: error: ';' expected\n    System.out.println(\"hola\")\n                              ^\n1 error\n"
-}
+expected_output=null
 
-EXP_EC=1
+expected_stderr=$(cat <<"EOF"
+/tmp/Main.java:3: error: ';' expected
+    System.out.println("hola")
+                              ^
+1 error
+EOF
+)

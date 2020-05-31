@@ -1,15 +1,10 @@
-#inline $INCLUDES_DIR/return-compile.bats
+#inline $INCLUDES_DIR/test-templates/well-formed-compile-output-json.bats
 
-function input_source {
-  cat <<EOF
+source_program=$(cat <<"EOF"
 public class Main {
   public static void main(String[] a) {
     System.out.println("hola");
   }
 }
 EOF
-}
-
-function expected_output {
-  echo yv66vgAAADQAHQoABgAPCQAQABEIABIKABMAFAcAFQcAFgEABjxpbml0PgEAAygpVgEABENvZGUBAA9MaW5lTnVtYmVyVGFibGUBAARtYWluAQAWKFtMamF2YS9sYW5nL1N0cmluZzspVgEAClNvdXJjZUZpbGUBAAlNYWluLmphdmEMAAcACAcAFwwAGAAZAQAEaG9sYQcAGgwAGwAcAQAETWFpbgEAEGphdmEvbGFuZy9PYmplY3QBABBqYXZhL2xhbmcvU3lzdGVtAQADb3V0AQAVTGphdmEvaW8vUHJpbnRTdHJlYW07AQATamF2YS9pby9QcmludFN0cmVhbQEAB3ByaW50bG4BABUoTGphdmEvbGFuZy9TdHJpbmc7KVYAIQAFAAYAAAAAAAIAAQAHAAgAAQAJAAAAHQABAAEAAAAFKrcAAbEAAAABAAoAAAAGAAEAAAABAAkACwAMAAEACQAAACUAAgABAAAACbIAAhIDtgAEsQAAAAEACgAAAAoAAgAAAAMACAAEAAEADQAAAAIADg==
-}
+)

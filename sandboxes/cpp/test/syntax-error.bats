@@ -1,7 +1,6 @@
-#inline $INCLUDES_DIR/return-compile.bats
+#inline $INCLUDES_DIR/test-templates/well-formed-compile-output-json.bats
 
-function input_source {
-  cat <<EOF
+source_program=$(cat <<"EOF"
 #include <iostream>
 using namespace std;
 
@@ -10,14 +9,18 @@ int main() {
   return 0;
 }
 EOF
-}
+)
 
-function expected_output {
-  echo null
-}
+expected_exit_code=1
 
-function expected_stderr {
-  echo -en "/tmp/main.cpp: In function 'int main()':\n/tmp/main.cpp:6:3: error: expected ';' before 'return'\n   return 0;\n   ^~~~~~\n"
-}
+expected_binary_program=null
 
-EXP_EC=1
+expected_stderr=$(cat <<"EOF"
+/tmp/main.cpp: In function 'int main()':
+/tmp/main.cpp:6:3: error: expected ';' before 'return'
+   return 0;
+   ^~~~~~
+EOF
+)
+
+

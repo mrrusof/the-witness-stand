@@ -1,4 +1,4 @@
-#inline lib/context-vars.bash
+#inline lib/consts.bash
 
 TIMEOUT=3
 
