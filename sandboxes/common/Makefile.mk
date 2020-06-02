@@ -12,7 +12,7 @@ TEST_INCLUDES_DIR=$(CURDIR)/../common/test
 TESTS=$(addprefix $(TEST_DIR)/,$(shell cd $(TEST_SRC_DIR) && echo *.bats))
 
 test: build $(TESTS) | $(REQUIRE_SANDBOXES_DIRS)
-	@time IMAGE=$(IMAGE) bats $(TESTS)
+	@time IMAGE=$(IMAGE_BUILD) bats $(TESTS)
 
 .SECONDEXPANSION:
 $(TEST_DIR)/%.bats: $$(shell INCLUDES_DIR=$(TEST_INCLUDES_DIR) $(ROOT)/common/inline.rb --deps $(TEST_SRC_DIR)/$$*.bats) | $(TEST_DIR)

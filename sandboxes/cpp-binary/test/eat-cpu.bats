@@ -1,17 +1,15 @@
-#inline cpp-timeout-preamble.bash
+#inline timeout-preamble.bash
 
 function input_source {
   cat <<EOF
 #include <thread>
-#include <vector>
 
 using namespace std;
 
 void thread_main() {
-  vector<int> nn;
   int j = 0;
   while(1) {
-    nn.push_back(j++);
+    j++;
   }
 }
 

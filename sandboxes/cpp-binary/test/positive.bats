@@ -1,4 +1,4 @@
-#inline cpp-compile-image.bash
+#inline images.bash
 #inline $INCLUDES_DIR/return-binary.bats
 
 function input_source {

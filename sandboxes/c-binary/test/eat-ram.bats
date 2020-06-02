@@ -1,13 +1,25 @@
-#inline c-timeout-preamble.bash
+#inline timeout-preamble.bash
 
 function input_source {
   cat <<EOF
 #include <pthread.h>
 #include <stdlib.h>
+#include <sys/queue.h>
+
+struct lentry {
+  int value;
+  SLIST_ENTRY(lentry) next;
+} lentry;
 
 void *thread_start(void *param) {
   int j = 0;
+  struct lentry *el;
+  SLIST_HEAD(lhead, lentry) head = SLIST_HEAD_INITIALIZER(head);
+  SLIST_INIT(&head);
   while(1) {
+    el = malloc(sizeof(struct lentry));
+    el->value = j;
+    SLIST_INSERT_HEAD(&head, el, next);
     j++;
   }
 }
@@ -25,3 +37,4 @@ int main() {
 }
 EOF
 }
+

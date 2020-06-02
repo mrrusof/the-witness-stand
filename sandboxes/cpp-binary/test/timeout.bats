@@ -1,4 +1,4 @@
-#inline cpp-timeout-preamble.bash
+#inline timeout-preamble.bash
 
 function input_source {
   cat <<EOF

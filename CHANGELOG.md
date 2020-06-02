@@ -1,5 +1,6 @@
-# 0.6.1 Unreleased
+# 0.6.2 Unreleased
 
+- Test that each c/cpp positive compile test runs.
 - Only test that compile output JSONs are well-formed.
 - Separate binary sandbox in c-binary and cpp-binary sandboxes.
 - Don't push when first CHANGELOG title is not a release version.

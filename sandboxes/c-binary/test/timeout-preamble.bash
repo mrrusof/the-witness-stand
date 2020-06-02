@@ -1,2 +1,2 @@
-#inline c-compile-image.bash
+#inline images.bash
 #inline $INCLUDES_DIR/timeout-binary.bats
