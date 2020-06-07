@@ -1,8 +1,6 @@
-#inline compile-image.bash
-#inline $INCLUDES_DIR/runtime-error-binary.bats
+#inline $INCLUDES_DIR/test-templates/run-compiled-runtime-error.bats
 
-function input_source {
-  cat <<EOF
+source_program=$(cat <<"EOF"
 public class Main {
 
     public static void main(String... args) throws InterruptedException {
@@ -15,8 +13,7 @@ public class Main {
 
 }
 EOF
-}
+)
 
-function expected_stderr {
-  echo 'Exception in thread "main" java.lang.StackOverflowError.*'
-}
+op_stderr='=~'
+expected_stderr='Exception in thread "main" java.lang.StackOverflowError.*'

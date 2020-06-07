@@ -24,7 +24,7 @@ class RunHarness < BaseHarness
 
   def do_other_output_pairs
     {
-      actualOutput: stdout
+      programOutput: stdout
     }
   end
 

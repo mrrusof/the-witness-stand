@@ -1,7 +1,6 @@
-#inline $INCLUDES_DIR/timeout-interpreted.bats
+#inline $INCLUDES_DIR/test-templates/run-interpreted-timeout.bats
 
-function input_source {
-  cat <<EOF
+source_program=$(cat <<"EOF"
 defmodule W00t do
   def this_wont_end_well(n, acc) do
     IO.print "not a good idea"
@@ -18,4 +17,4 @@ end
 
 receive do _ -> nil end
 EOF
-}
+)

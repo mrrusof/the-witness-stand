@@ -1,9 +1,8 @@
-#inline $INCLUDES_DIR/timeout-interpreted.bats
+#inline $INCLUDES_DIR/test-templates/run-interpreted-timeout.bats
 
-function input_source {
-  cat <<EOF
+source_program=$(cat <<"EOF"
 from os import system
 
 system("dd if=/dev/urandom of=/tmp/trash bs=1M count=1048576")
 EOF
-}
+)

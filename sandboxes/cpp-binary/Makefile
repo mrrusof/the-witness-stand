@@ -1,5 +1,5 @@
 REQUIRE_IMAGES=base
-REQUIRE_SANDBOXES=cpp
-PROCESS=cpp-binary
+COMPILE_SANDBOX=cpp
+SANDBOX=cpp-binary
 
 include ../common/Makefile.mk

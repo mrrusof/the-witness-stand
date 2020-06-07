@@ -1,18 +1,25 @@
-IMAGE_REPO=$(PROCESS)-sandbox
+IMAGE_REPO=$(SANDBOX)-sandbox
 
 include ../../images/common/Makefile.mk
 
+COMPILE_IMAGE_REPO=$(if $(COMPILE_SANDBOX),$(COMPILE_SANDBOX)-sandbox)
+COMPILE_IMAGE=$(if $(COMPILE_IMAGE_REPO),$(DOCKERHUB_USER)/$(COMPILE_IMAGE_REPO):build)
+
 SANDBOXES_ROOT=$(ROOT)/sandboxes
-REQUIRE_SANDBOXES_DIRS=$(addprefix $(SANDBOXES_ROOT)/,$(REQUIRE_SANDBOXES))
-TODO_REQUIRE_SANDBOXES_DIRS=$(foreach dir,$(REQUIRE_SANDBOXES_DIRS),$(DIR_TO_TODO))
+ALL_REQUIRE_SANDBOXES=$(REQUIRE_SANDOXES) $(COMPILE_SANDBOX)
+ALL_REQUIRE_SANDBOXES_DIRS=$(addprefix $(SANDBOXES_ROOT)/,$(ALL_REQUIRE_SANDBOXES))
+TODO_ALL_REQUIRE_SANDBOXES_DIRS=$(foreach dir,$(ALL_REQUIRE_SANDBOXES_DIRS),$(DIR_TO_TODO))
 
 TEST_DIR=$(BUILD_DIR)/test
 TEST_SRC_DIR=test
 TEST_INCLUDES_DIR=$(CURDIR)/../common/test
 TESTS=$(addprefix $(TEST_DIR)/,$(shell cd $(TEST_SRC_DIR) && echo *.bats))
 
-test: build $(TESTS) | $(REQUIRE_SANDBOXES_DIRS)
-	@time IMAGE=$(IMAGE_BUILD) bats $(TESTS)
+test: build $(TESTS) | $(ALL_REQUIRE_SANDBOXES_DIRS)
+	time COMPILE_IMAGE=$(COMPILE_IMAGE) IMAGE=$(IMAGE_BUILD) bats $(TESTS)
+
+test-$(TEST_DIR)/%.bats: $(TEST_DIR)/%.bats
+	time COMPILE_IMAGE=$(COMPILE_IMAGE) IMAGE=$(IMAGE_BUILD) bats $(TEST_DIR)/$*.bats
 
 .SECONDEXPANSION:
 $(TEST_DIR)/%.bats: $$(shell INCLUDES_DIR=$(TEST_INCLUDES_DIR) $(ROOT)/common/inline.rb --deps $(TEST_SRC_DIR)/$$*.bats) | $(TEST_DIR)
@@ -21,7 +28,7 @@ $(TEST_DIR)/%.bats: $$(shell INCLUDES_DIR=$(TEST_INCLUDES_DIR) $(ROOT)/common/in
 $(TEST_DIR):
 	mkdir -p $@
 
-$(TODO_REQUIRE_SANDBOXES_DIRS): force
+$(TODO_ALL_REQUIRE_SANDBOXES_DIRS): force
 	$(MAKE) -C $@ build
 	touch $@
 
@@ -33,4 +40,4 @@ push: build
 	  echo Tag is unreleased, skip pushing image.; \
 	fi
 
-.PHONY: push test
+.PHONY: push test test-$(TEST_DIR)/%.bats

@@ -1,4 +1,4 @@
 REQUIRE_IMAGES=base
-PROCESS=c
+SANDBOX=c
 
 include ../common/Makefile.mk

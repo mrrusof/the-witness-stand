@@ -1,4 +1,4 @@
 REQUIRE_IMAGES=java-base
-PROCESS=javac
+SANDBOX=javac
 
 include ../common/Makefile.mk

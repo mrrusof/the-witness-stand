@@ -1,4 +1,4 @@
 REQUIRE_IMAGES=base
-PROCESS=ocaml
+SANDBOX=ocaml
 
 include ../common/Makefile.mk

@@ -1,7 +1,6 @@
-#inline $INCLUDES_DIR/timeout-interpreted.bats
+#inline $INCLUDES_DIR/test-templates/run-interpreted-timeout.bats
 
-function input_source {
-  cat <<EOF
+source_program=$(cat <<"EOF"
 let rec inf_loop i = inf_loop (i + 1);;
 let rec run_threads n tt =
   if n > 0 then
@@ -15,4 +14,4 @@ let rec join_threads = function
 ;;
 join_threads (run_threads 1000 []);;
 EOF
-}
+)

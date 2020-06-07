@@ -1,1 +1,1 @@
-#inline $INCLUDES_DIR/no-internet.bats
+#inline $INCLUDES_DIR/test-templates/no-internet.bats

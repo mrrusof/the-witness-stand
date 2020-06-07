@@ -36,7 +36,7 @@ function has_usage {
 }
 
 function available_sandboxes {
-  grep PROCESS $SANDBOXES_DIR/*/Makefile | sed 's/.*PROCESS=//' | sort
+  grep '^SANDBOX=' $SANDBOXES_DIR/*/Makefile | sed 's/.*SANDBOX=//' | sort
 }
 
 function download_commands {
@@ -55,7 +55,7 @@ function docker {
 
 @test "$TEST_SUITE: accepts a sandbox name and a container name." {
   run expected_usage_sandbox_container_params
-  actual_output=`echo $output | jshon -e actualOutput`
+  actual_output=`echo $output | jshon -e programOutput`
   echo \$output = $output
   [ $status = 0 ]
   [ "$actual_output" = '"hola\n"' ]
@@ -63,7 +63,7 @@ function docker {
 
 @test "$TEST_SUITE: accepts a sandbox name." {
   run expected_usage_sandbox_param
-  actual_output=`echo $output | jshon -e actualOutput`
+  actual_output=`echo $output | jshon -e programOutput`
   echo \$output = $output
   [ $status = 0 ]
   [ "$actual_output" = '"hola\n"' ]

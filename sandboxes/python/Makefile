@@ -1,4 +1,4 @@
 REQUIRE_IMAGES=base
-PROCESS=python
+SANDBOX=python
 
 include ../common/Makefile.mk

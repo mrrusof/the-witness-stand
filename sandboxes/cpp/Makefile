@@ -1,4 +1,4 @@
 REQUIRE_IMAGES=base
-PROCESS=cpp
+SANDBOX=cpp
 
 include ../common/Makefile.mk

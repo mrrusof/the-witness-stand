@@ -1,11 +1,12 @@
-#inline timeout-preamble.bash
+#inline $INCLUDES_DIR/test-templates/run-compiled-timeout.bats
 
-function input_source {
-  cat <<EOF
+TIMEOUT=5
+
+source_program=$(cat <<"EOF"
 public class Main {
     public static void main(String... args) throws InterruptedException {
         Thread.sleep(3600000);
     }
 }
 EOF
-}
+)

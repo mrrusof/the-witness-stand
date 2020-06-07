@@ -1,8 +1,6 @@
-#inline images.bash
-#inline $INCLUDES_DIR/return-binary.bats
+#inline $INCLUDES_DIR/test-templates/run-compiled-positive.bats
 
-function input_source {
-  cat <<EOF
+source_program=$(cat <<"EOF"
 #include <vector>
 #include <stdio.h>
 
@@ -10,6 +8,7 @@ using namespace std;
 
 int main() {
   vector<int> nn;
+
   for(int i = 0; i < 10; i++) {
     nn.push_back(i);
   }
@@ -17,11 +16,9 @@ int main() {
   return 0;
 }
 EOF
-}
+)
 
-function expected_output {
-  cat <<"EOF"
+expected_program_output=$(cat <<"EOF"
 vector size is 10
 EOF
-}
-
+)

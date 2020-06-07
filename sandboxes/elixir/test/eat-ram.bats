@@ -1,7 +1,6 @@
-#inline $INCLUDES_DIR/timeout-interpreted.bats
+#inline $INCLUDES_DIR/test-templates/run-interpreted-timeout.bats
 
-function input_source {
-  cat <<EOF
+source_program=$(cat <<"EOF"
 1..1000
 |> Enum.map(fn _ ->
   spawn fn ->
@@ -11,4 +10,4 @@ end)
 
 receive do _ -> nil end
 EOF
-}
+)

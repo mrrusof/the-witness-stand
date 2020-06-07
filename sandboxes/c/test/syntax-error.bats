@@ -1,4 +1,4 @@
-#inline $INCLUDES_DIR/test-templates/well-formed-compile-output-json.bats
+#inline $INCLUDES_DIR/test-templates/compile-error.bats
 
 source_program=$(cat <<"EOF"
 #include <stdio.h>
@@ -9,10 +9,6 @@ int main() {
 }
 EOF
 )
-
-expected_exit_code=1
-
-expected_binary_program=null
 
 expected_stderr=$(cat <<"EOF"
 /tmp/main.c: In function 'main':

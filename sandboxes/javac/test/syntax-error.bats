@@ -1,4 +1,4 @@
-#inline $INCLUDES_DIR/test-templates/well-formed-compile-output-json.bats
+#inline $INCLUDES_DIR/test-templates/compile-error.bats
 
 source_program=$(cat <<"EOF"
 public class Main {
@@ -8,10 +8,6 @@ public class Main {
 }
 EOF
 )
-
-expected_exit_code=1
-
-expected_output=null
 
 expected_stderr=$(cat <<"EOF"
 /tmp/Main.java:3: error: ';' expected

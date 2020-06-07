@@ -1,8 +1,6 @@
-#inline images.bash
-#inline $INCLUDES_DIR/return-binary.bats
+#inline $INCLUDES_DIR/test-templates/run-compiled-positive.bats
 
-function input_source {
-  cat <<EOF
+source_program=$(cat <<"EOF"
 #include <pthread.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -39,12 +37,11 @@ int main() {
   }
 }
 EOF
-}
+)
 
-function expected_output {
-  cat <<"EOF"
+expected_program_output=$(cat <<"EOF"
 thread 0 done
 thread 1 done
 thread 2 done
 EOF
-}
+)

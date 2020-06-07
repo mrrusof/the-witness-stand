@@ -1,5 +1,5 @@
 REQUIRE_IMAGES=base
-REQUIRE_SANDBOXES=c
-PROCESS=c-binary
+COMPILE_SANDBOX=c
+SANDBOX=c-binary
 
 include ../common/Makefile.mk

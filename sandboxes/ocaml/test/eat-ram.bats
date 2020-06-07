@@ -1,7 +1,6 @@
-#inline $INCLUDES_DIR/timeout-interpreted.bats
+#inline $INCLUDES_DIR/test-templates/run-interpreted-timeout.bats
 
-function input_source {
-  cat <<EOF
+source_program=$(cat <<"EOF"
 let rec inf_loop (i, nn) = inf_loop (i + 1, i :: nn);;
 let rec run_threads n tt =
   if n > 0 then
@@ -27,4 +26,4 @@ end
 
 threads.each { |t| t.join }*)
 EOF
-}
+)

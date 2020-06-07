@@ -16,4 +16,3 @@ export PATH=${CLI_BIN_DIR}:${PATH}
 VERSION=`$ROOT/common/version.sh`
 DOCKER_IMAGE_PREFIX=mrrusof/
 DOCKER_IMAGE_SUFFIX=:$VERSION
-

@@ -1,7 +1,7 @@
 function sandbox {
   : ${TIMEOUT:=10}
-  [ -v CONTAINER_NAME ] || return 1
-  [ -v IMAGE ] || return 2
+  [ -v CONTAINER_NAME ] || return 101
+  [ -v IMAGE ] || return 102
   timeout ${TIMEOUT}s docker run --name $CONTAINER_NAME \
                                  --hostname=localhost \
                                  --network=none \

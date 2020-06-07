@@ -1,7 +1,6 @@
-#inline timeout-preamble.bash
+#inline $INCLUDES_DIR/test-templates/run-compiled-timeout.bats
 
-function input_source {
-  cat <<EOF
+source_program=$(cat <<"EOF"
 public class Main {
     public static void main(String... args) throws Exception {
         Runtime.getRuntime()
@@ -10,4 +9,4 @@ public class Main {
     }
 }
 EOF
-}
+)

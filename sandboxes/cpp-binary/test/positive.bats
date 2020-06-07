@@ -1,8 +1,6 @@
-#inline images.bash
-#inline $INCLUDES_DIR/return-binary.bats
+#inline $INCLUDES_DIR/test-templates/run-compiled-positive.bats
 
-function input_source {
-  cat <<EOF
+source_program=$(cat <<"EOF"
 #include <iostream>
 using namespace std;
 
@@ -12,9 +10,10 @@ int main() {
   return 0;
 }
 EOF
-}
+)
 
-function expected_output {
-  echo -e "this is line 1\nthis is line 2\n"
-}
-
+expected_program_output=$(cat <<"EOF"
+this is line 1
+this is line 2
+EOF
+)

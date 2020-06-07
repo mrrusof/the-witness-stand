@@ -1,4 +1,4 @@
 REQUIRE_IMAGES=base
-PROCESS=elixir
+SANDBOX=elixir
 
 include ../common/Makefile.mk

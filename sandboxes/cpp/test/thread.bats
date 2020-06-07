@@ -1,4 +1,4 @@
-#inline $INCLUDES_DIR/test-templates/well-formed-compile-output-json.bats
+#inline $INCLUDES_DIR/test-templates/compile-positive.bats
 
 source_program=$(cat <<"EOF"
 #include <iostream>

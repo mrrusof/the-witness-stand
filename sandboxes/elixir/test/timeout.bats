@@ -1,7 +1,3 @@
-#inline $INCLUDES_DIR/timeout-interpreted.bats
+#inline $INCLUDES_DIR/test-templates/run-interpreted-timeout.bats
 
-function input_source {
-  cat <<EOF
-:timer.sleep 3600000
-EOF
-}
+source_program=':timer.sleep 3600000'

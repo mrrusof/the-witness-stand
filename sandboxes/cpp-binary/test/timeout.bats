@@ -1,7 +1,8 @@
-#inline timeout-preamble.bash
+#inline $INCLUDES_DIR/test-templates/run-compiled-timeout.bats
 
-function input_source {
-  cat <<EOF
+TIMEOUT=3
+
+source_program=$(cat <<"EOF"
 #include <thread>
 #include <chrono>
 
@@ -12,4 +13,4 @@ int main() {
   return 0;
 }
 EOF
-}
+)

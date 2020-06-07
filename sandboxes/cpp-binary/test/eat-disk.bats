@@ -1,11 +1,10 @@
-#inline timeout-preamble.bash
+#inline $INCLUDES_DIR/test-templates/run-compiled-timeout.bats
 
-function input_source {
-  cat <<EOF
+source_program=$(cat <<"EOF"
 #include <stdlib.h>
 
 int main() {
   system("dd if=/dev/urandom of=/tmp/trash bs=1M count=1048576");
 }
 EOF
-}
+)

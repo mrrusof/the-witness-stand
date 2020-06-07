@@ -1,7 +1,6 @@
-#inline $INCLUDES_DIR/timeout-interpreted.bats
+#inline $INCLUDES_DIR/test-templates/run-interpreted-timeout.bats
 
-function input_source {
-  cat <<EOF
+source_program=$(cat <<"EOF"
 from threading import Thread
 
 def work():
@@ -18,4 +17,4 @@ for i in range(10000):
 for t in threads:
     t.join()
 EOF
-}
+)

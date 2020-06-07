@@ -1,12 +1,13 @@
-#inline $INCLUDES_DIR/return-interpreted.bats
+#inline $INCLUDES_DIR/test-templates/run-interpreted-positive.bats
 
-function input_source {
-  cat <<EOF
+source_program=$(cat <<"EOF"
 IO.puts "this is line 1"
 IO.puts "this is line 2"
 EOF
-}
+)
 
-function expected_output {
-  echo -e "this is line 1\nthis is line 2\n"
-}
+expected_program_output=$(cat <<"EOF"
+this is line 1
+this is line 2
+EOF
+)

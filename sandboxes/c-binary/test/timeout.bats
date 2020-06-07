@@ -1,11 +1,12 @@
-#inline timeout-preamble.bash
+#inline $INCLUDES_DIR/test-templates/run-compiled-timeout.bats
 
-function input_source {
-  cat <<EOF
+TIMEOUT=3
+
+source_program=$(cat <<"EOF"
 #include <unistd.h>
 
 int main() {
   sleep(3600);
 }
 EOF
-}
+)

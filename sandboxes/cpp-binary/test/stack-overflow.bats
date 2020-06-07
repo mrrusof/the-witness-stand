@@ -1,8 +1,6 @@
-#inline images.bash
-#inline $INCLUDES_DIR/runtime-error-binary.bats
+#inline $INCLUDES_DIR/test-templates/run-compiled-runtime-error.bats
 
-function input_source {
-  cat <<EOF
+source_program=$(cat <<"EOF"
 void this_wont_end_well(int n) {
   this_wont_end_well(n + 1);
 }
@@ -11,6 +9,6 @@ int main() {
   this_wont_end_well(0);
 }
 EOF
-}
+)
 
-EXP_EC=11
+expected_exit_code=11

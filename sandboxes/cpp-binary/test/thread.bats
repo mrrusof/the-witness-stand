@@ -1,8 +1,6 @@
-#inline images.bash
-#inline $INCLUDES_DIR/return-binary.bats
+#inline $INCLUDES_DIR/test-templates/run-compiled-positive.bats
 
-function input_source {
-  cat <<EOF
+source_program=$(cat <<"EOF"
 #include <iostream>
 #include <thread>
 
@@ -20,13 +18,11 @@ int main(int argc, char **argv) {
   return 0;
 }
 EOF
-}
+)
 
-function expected_output {
-  cat <<"EOF"
+expected_program_output=$(cat <<"EOF"
 waiting for thread
 thread does some work
 thread is done
 EOF
-}
-
+)

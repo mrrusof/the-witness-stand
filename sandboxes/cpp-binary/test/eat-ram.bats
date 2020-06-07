@@ -1,7 +1,6 @@
-#inline timeout-preamble.bash
+#inline $INCLUDES_DIR/test-templates/run-compiled-timeout.bats
 
-function input_source {
-  cat <<EOF
+source_program=$(cat <<"EOF"
 #include <thread>
 #include <vector>
 
@@ -28,4 +27,4 @@ int main() {
   return 0;
 }
 EOF
-}
+)

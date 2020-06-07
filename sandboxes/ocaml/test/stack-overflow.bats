@@ -1,22 +1,17 @@
-#inline $INCLUDES_DIR/runtime-error-interpreted.bats
+#inline $INCLUDES_DIR/test-templates/run-interpreted-runtime-error.bats
 
-function input_source {
-  cat <<EOF
+source_program=$(cat <<"EOF"
 let rec this_wont_end_well n = 
   Printf.printf "not a good idea\n";
   this_wont_end_well (n + 1) + 1
 in this_wont_end_well 0;;
 EOF
-}
+)
 
-function expected_output {
-  echo 'not a good idea'
-}
+op_program_output='=~'
+expected_program_output='not a good idea'
 
-function expected_stderr {
-  echo -n 'Stack overflow during evaluation'
-}
+op_stderr='=~'
+expected_stderr='Stack overflow during evaluation'
 
-EXP_EC=2
-
-
+expected_exit_code=2

@@ -1,4 +1,4 @@
 REQUIRE_IMAGES=base
-PROCESS=ruby
+SANDBOX=ruby
 
 include ../common/Makefile.mk

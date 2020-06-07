@@ -1,7 +1,6 @@
-#inline timeout-preamble.bash
+#inline $INCLUDES_DIR/test-templates/run-compiled-timeout.bats
 
-function input_source {
-  cat <<EOF
+source_program=$(cat <<"EOF"
 import java.util.ArrayList;
 
 public class Main {
@@ -24,4 +23,4 @@ public class Main {
     }
 }
 EOF
-}
+)
