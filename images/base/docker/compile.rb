@@ -13,16 +13,16 @@ class CompileHarness < BaseHarness
     abort 'No source path given.' if !source_path
   end
 
-  def input_source
-    input_json['source']
+  def input_source_program
+    input_json['sourceProgram']
   end
 
   def do_validate_input_json
-    abort 'No source given.' if !input_source
+    abort 'No source given.' if !input_source_program
   end
 
   def do_write_command_input
-    File.write source_path, input_source
+    File.write source_path, input_source_program
   end
 
   def binary_program

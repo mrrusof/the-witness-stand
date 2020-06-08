@@ -18,5 +18,3 @@ expected_stderr=$(cat <<"EOF"
    ^~~~~~
 EOF
 )
-
-

@@ -9,7 +9,7 @@ function binary_program {
   var_not_empty CONTAINER_NAME
   var_is_set source_program
   echo '{}' | \
-      jshon -s "$source_program" -i source | \
+      jshon -s "$source_program" -i sourceProgram | \
       IMAGE=$COMPILE_IMAGE CONTAINER_NAME=compile-$CONTAINER_NAME sandbox | \
       jshon -e binaryProgram -u
 }
