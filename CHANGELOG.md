@@ -1,3 +1,17 @@
+# 0.9.0 Unreleased
+
+- Use variable interpreted_program in tests.
+
+# 0.8.0 Unreleased
+
+- Rename compile input_json.source -> input_json.sourceProgram.
+
+# 0.7.2 Unreleased
+
+- Fix no internet tests.
+- Revamp tests.
+- Rename binary/interpreted output_json.actualOutput -> output_json.programOutput
+
 # 0.6.2 Unreleased
 
 - Test that each c/cpp positive compile test runs.
