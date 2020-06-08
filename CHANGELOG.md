@@ -1,5 +1,6 @@
-# 0.9.0 Unreleased
+# 0.9.1 Unreleased
 
+- Inline test dependencies once.
 - Use variable interpreted_program in tests.
 
 # 0.8.0 Unreleased
