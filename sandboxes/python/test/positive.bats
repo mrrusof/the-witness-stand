@@ -1,6 +1,6 @@
 #inline $INCLUDES_DIR/test-templates/run-interpreted-positive.bats
 
-source_program=$(cat <<"EOF"
+interpreted_program=$(cat <<"EOF"
 print("this is line 1")
 print("this is line 2")
 EOF

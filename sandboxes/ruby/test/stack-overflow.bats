@@ -1,6 +1,6 @@
 #inline $INCLUDES_DIR/test-templates/run-interpreted-runtime-error.bats
 
-source_program=$(cat <<"EOF"
+interpreted_program=$(cat <<"EOF"
 def this_wont_end_well n
   puts 'not a good idea'
   this_wont_end_well(n + 1)

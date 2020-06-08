@@ -1,6 +1,6 @@
 #inline $INCLUDES_DIR/test-templates/run-interpreted-runtime-error.bats
 
-source_program=$(cat <<"EOF"
+interpreted_program=$(cat <<"EOF"
 let rec this_wont_end_well n = 
   Printf.printf "not a good idea\n";
   this_wont_end_well (n + 1) + 1

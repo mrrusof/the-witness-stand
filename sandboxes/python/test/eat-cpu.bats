@@ -1,6 +1,6 @@
 #inline $INCLUDES_DIR/test-templates/run-interpreted-timeout.bats
 
-source_program=$(cat <<"EOF"
+interpreted_program=$(cat <<"EOF"
 from threading import Thread
 
 def work():

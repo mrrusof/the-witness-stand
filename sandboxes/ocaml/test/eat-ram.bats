@@ -1,6 +1,6 @@
 #inline $INCLUDES_DIR/test-templates/run-interpreted-timeout.bats
 
-source_program=$(cat <<"EOF"
+interpreted_program=$(cat <<"EOF"
 let rec inf_loop (i, nn) = inf_loop (i + 1, i :: nn);;
 let rec run_threads n tt =
   if n > 0 then
