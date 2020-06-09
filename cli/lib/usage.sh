@@ -2,7 +2,7 @@ function usage {
   cmd=`basename $0`
   cat <<EOF
 Usage:
-  $cmd <SANDBOX> <CONTAINER_NAME>
+  $cmd <SANDBOX> [<CONTAINER_NAME>]
   $cmd <option>
 
 Options:

@@ -1,3 +1,7 @@
+# 0.9.2 Unreleased
+
+- Indicate in CLI usage that container name is optional.
+
 # 0.9.1 2020.06.08
 
 - Inline test dependencies once.
