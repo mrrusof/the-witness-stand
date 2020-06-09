@@ -1,4 +1,4 @@
-# 0.9.1 Unreleased
+# 0.9.1 2020.06.08
 
 - Inline test dependencies once.
 - Use variable interpreted_program in tests.
