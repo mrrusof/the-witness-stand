@@ -8,8 +8,8 @@ in this_wont_end_well 0;;
 EOF
 )
 
-op_program_output='=~'
-expected_program_output='not a good idea'
+op_stdout='=~'
+expected_stdout='not a good idea'
 
 op_stderr='=~'
 expected_stderr='Stack overflow during evaluation'

@@ -7,7 +7,7 @@ List.iter (fun e -> Printf.printf "%s\n" e) l
 EOF
 )
 
-expected_program_output=$(cat <<"EOF"
+expected_stdout=$(cat <<"EOF"
 hola
 mundo
 EOF

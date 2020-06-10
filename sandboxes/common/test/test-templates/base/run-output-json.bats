@@ -9,12 +9,10 @@
 @test "$SANDBOX::$TEST_SUBJECT: $TEST_NAME" {
   fun_is_set input_json
 
-  : ${op_program_output:='='}
   : ${op_stdout:='='}
   : ${op_stderr:='='}
 
   : ${expected_exit_code:=0}
-  : ${expected_program_output:=''}
   : ${expected_stdout:=''}
   : ${expected_stderr:=''}
 
@@ -24,7 +22,6 @@
   t "`output_json pair_count`" = 4
   t "`output_json value wallTime`" =~ "$expected_wall_time_format";
   t "`output_json value exitCode`" = "$expected_exit_code"
-  t "`output_json value programOutput`" $op_program_output "$expected_program_output"
   t "`output_json value stdout`" $op_stdout "$expected_stdout"
   t "`output_json value stderr`" $op_stderr "$expected_stderr"  
   sandbox_is_not_running

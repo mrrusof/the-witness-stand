@@ -3,10 +3,8 @@ require 'open3'
 
 class BaseHarness
 
-  TIM = '/tmp/time'
-
-  def program_path
-    ENV['PRG']
+  def time_file_path
+    '/tmp/time'
   end
 
   def command
@@ -18,7 +16,6 @@ class BaseHarness
   end
 
   def validate_env
-    abort 'No program path given.' if !program_path
     abort 'No command given.' if !command
     do_validate_other_env
   end
@@ -31,16 +28,16 @@ class BaseHarness
     do_validate_input_json
   end
 
-  def write_command_input
-    do_write_command_input
+  def before_run_command
+    do_before_run_command
   end
 
-  def do_stdin_data
+  def do_stdin
     nil
   end
 
   def run_command
-    @stdout, @stderr, @status = Open3.capture3 ENV, "time -o #{TIM} #{command}", stdin_data: do_stdin_data
+    @stdout, @stderr, @status = Open3.capture3 ENV, "time -o #{time_file_path} #{command}", stdin_data: do_stdin
     @time = nil
   end
 
@@ -57,13 +54,14 @@ class BaseHarness
   end
 
   def time
-    @time ||= File.read(TIM).lines.select{|l| l.match? /real/ }.map{|l| l.gsub(/real\t/, '').chomp }.first
+    @time ||= File.read(time_file_path).lines.select{|l| l.match? /real/ }.map{|l| l.gsub(/real\t/, '').chomp }.first
   end
 
   def base_output_pairs
     {
-      stderr: stderr,
       exitCode: status.exitstatus,
+      stdout: stdout,
+      stderr: stderr,
       wallTime: time
     }
   end
@@ -76,16 +74,16 @@ class BaseHarness
     base_output_pairs.merge do_other_output_pairs
   end
 
-  def emit_output
+  def emit_output_json
     puts JSON.pretty_generate output_json
   end
 
   def run
     validate_env
     validate_input_json
-    write_command_input
+    before_run_command
     run_command
-    emit_output
+    emit_output_json
   end
 
 end

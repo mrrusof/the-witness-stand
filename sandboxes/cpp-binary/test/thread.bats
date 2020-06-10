@@ -20,7 +20,7 @@ int main(int argc, char **argv) {
 EOF
 )
 
-expected_program_output=$(cat <<"EOF"
+expected_stdout=$(cat <<"EOF"
 waiting for thread
 thread does some work
 thread is done

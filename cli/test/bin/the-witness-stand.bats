@@ -2,7 +2,7 @@ load ../helper
 
 function input_json {
   cat <<EOF
-{ "interpretedProgram": "puts 'hola'", "input": "" }
+{ "interpretedProgram": "puts 'hola'", "stdin": "" }
 EOF
 }
 
@@ -50,12 +50,13 @@ function docker {
     echo docker pull $2
   else
     echo unknown action for \"docker "$1" "$2"\"
+    return 1
   fi
 }
 
 @test "$TEST_SUITE: accepts a sandbox name and a container name." {
   run expected_usage_sandbox_container_params
-  actual_output=`echo $output | jshon -e programOutput`
+  actual_output=`echo $output | jshon -e stdout`
   echo \$output = $output
   [ $status = 0 ]
   [ "$actual_output" = '"hola\n"' ]
@@ -63,7 +64,7 @@ function docker {
 
 @test "$TEST_SUITE: accepts a sandbox name." {
   run expected_usage_sandbox_param
-  actual_output=`echo $output | jshon -e programOutput`
+  actual_output=`echo $output | jshon -e stdout`
   echo \$output = $output
   [ $status = 0 ]
   [ "$actual_output" = '"hola\n"' ]

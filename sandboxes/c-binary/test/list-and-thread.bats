@@ -39,7 +39,7 @@ int main() {
 EOF
 )
 
-expected_program_output=$(cat <<"EOF"
+expected_stdout=$(cat <<"EOF"
 thread 0 done
 thread 1 done
 thread 2 done

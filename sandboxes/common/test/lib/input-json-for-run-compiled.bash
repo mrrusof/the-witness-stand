@@ -2,7 +2,7 @@
 #inline var-is-set.bash
 #inline var-not-empty.bash
 
-function binary_program {
+function compiled_program {
   set -e
   fun_is_set sandbox
   var_not_empty COMPILE_IMAGE
@@ -11,13 +11,11 @@ function binary_program {
   echo '{}' | \
       jshon -s "$source_program" -i sourceProgram | \
       IMAGE=$COMPILE_IMAGE CONTAINER_NAME=compile-$CONTAINER_NAME sandbox | \
-      jshon -e binaryProgram -u
+      jshon -e compiledProgram -u
 }
-
-: ${program_input:=''}
 
 function input_json {
   set -e
-  var_is_set program_input
-  echo "{ \"binaryProgram\": \"$(binary_program)\", \"input\":\"$program_input\" }"
+  : ${stdin:=''}
+  echo "{ \"compiledProgram\": \"$(compiled_program)\", \"stdin\":\"$stdin\" }"
 }

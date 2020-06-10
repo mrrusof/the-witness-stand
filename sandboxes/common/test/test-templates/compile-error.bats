@@ -4,4 +4,4 @@
 TEST_NAME='Sandbox returns expected compile error.'
 
 : ${expected_exit_code:=1}
-: ${expected_binary_program:=null}
+: ${expected_compiled_program:=null}

@@ -18,7 +18,7 @@ int main() {
 EOF
 )
 
-expected_program_output=$(cat <<"EOF"
+expected_stdout=$(cat <<"EOF"
 vector size is 10
 EOF
 )

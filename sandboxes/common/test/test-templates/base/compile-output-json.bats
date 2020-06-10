@@ -11,7 +11,7 @@
   fun_is_set input_json
 
   : ${expected_exit_code:=0}
-  : ${expected_binary_program:=.+}
+  : ${expected_compiled_program:=.+}
   : ${expected_stdout:=''}
   : ${expected_stderr:=''}
 
@@ -21,7 +21,7 @@
   t "`output_json pair_count`" = 5
   t "`output_json value wallTime`" =~ "$expected_wall_time_format"
   t "`output_json value exitCode`" = "$expected_exit_code"
-  t "`output_json value binaryProgram`" =~ "$expected_binary_program"
+  t "`output_json value compiledProgram`" =~ "$expected_compiled_program"
   t "`output_json value stdout`" = "$expected_stdout"
   t "`output_json value stderr`" = "$expected_stderr"  
   sandbox_is_not_running

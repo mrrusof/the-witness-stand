@@ -5,29 +5,38 @@ require 'base64'
 
 class CompileHarness < BaseHarness
 
-  def source_path
+  def source_program_path
     ENV['SRC']
   end
 
-  def do_validate_other_env
-    abort 'No source path given.' if !source_path
+  def compiled_program_path
+    ENV['PRG']
   end
 
-  def input_source_program
+  def do_validate_other_env
+    abort 'No compiled program path given.' if !compiled_program_path
+    abort 'No source program path given.' if !source_program_path
+  end
+
+  def source_program
     input_json['sourceProgram']
   end
 
   def do_validate_input_json
-    abort 'No source given.' if !input_source_program
+    abort 'No source program given.' if !source_program
   end
 
-  def do_write_command_input
-    File.write source_path, input_source_program
+  def write_source_program
+    File.write source_program_path, source_program
   end
 
-  def binary_program
-    if File.exists? program_path
-      Base64.strict_encode64 File.binread program_path
+  def do_before_run_command
+    write_source_program
+  end
+
+  def compiled_program
+    if File.exists? compiled_program_path
+      Base64.strict_encode64 File.binread compiled_program_path
     else
       nil
     end
@@ -35,8 +44,7 @@ class CompileHarness < BaseHarness
 
   def do_other_output_pairs
     {
-      stdout: stdout,
-      binaryProgram: binary_program
+      compiledProgram: compiled_program
     }
   end
 

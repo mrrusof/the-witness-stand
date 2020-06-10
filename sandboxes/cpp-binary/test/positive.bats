@@ -12,7 +12,7 @@ int main() {
 EOF
 )
 
-expected_program_output=$(cat <<"EOF"
+expected_stdout=$(cat <<"EOF"
 this is line 1
 this is line 2
 EOF

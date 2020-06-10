@@ -5,27 +5,29 @@ require 'json'
 
 class RunHarness < BaseHarness
 
-  def input_program
-    do_input_program
+  def program_path
+    ENV['PRG']
   end
 
-  def input_data
-    input_json['input']
+  def do_validate_other_env
+    abort 'No program path given.' if !program_path
+  end
+
+  def program
+    do_program
+  end
+
+  def stdin
+    input_json['stdin']
   end
 
   def do_validate_input_json
-    abort 'No program given.' if !input_program
-    abort 'No input data given.' if !input_data
+    abort 'No program given.' if !program
+    abort 'No stdin given.' if !stdin
   end
 
-  def do_stdin_data
-    input_data
-  end
-
-  def do_other_output_pairs
-    {
-      programOutput: stdout
-    }
+  def do_stdin
+    stdin
   end
 
 end
