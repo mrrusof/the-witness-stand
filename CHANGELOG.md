@@ -1,4 +1,4 @@
-# 0.9.2 Unreleased
+# 0.10.0 2020.06.10
 
 - Rename input/output json fields.
 - Indicate in CLI usage that container name is optional.
