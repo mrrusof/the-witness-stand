@@ -24,9 +24,13 @@ class BaseHarness
     @input_json ||= JSON.parse ARGF.read
   end
 
+  # virtual: do_validate_input_json
+
   def validate_input_json
     do_validate_input_json
   end
+
+  # virtual: do_before_run_command
 
   def before_run_command
     do_before_run_command
@@ -39,6 +43,14 @@ class BaseHarness
   def run_command
     @stdout, @stderr, @status = Open3.capture3 ENV, "time -o #{time_file_path} #{command}", stdin_data: do_stdin
     @time = nil
+  end
+
+  def do_after_run_command
+    # do nothing by default
+  end
+
+  def after_run_command
+    do_after_run_command
   end
 
   def stdout
@@ -83,6 +95,7 @@ class BaseHarness
     validate_input_json
     before_run_command
     run_command
+    after_run_command
     emit_output_json
   end
 

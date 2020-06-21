@@ -1,3 +1,7 @@
+# 0.11.0 2020.06.21
+
+- Handle multiple classes in Java.
+
 # 0.10.0 2020.06.10
 
 - Rename input/output json fields.

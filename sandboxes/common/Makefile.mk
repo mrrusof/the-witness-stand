@@ -18,7 +18,7 @@ TESTS=$(addprefix $(TEST_DIR)/,$(shell cd $(TEST_SRC_DIR) && echo *.bats))
 test: build $(TESTS) | $(ALL_REQUIRE_SANDBOXES_DIRS)
 	time COMPILE_IMAGE=$(COMPILE_IMAGE) IMAGE=$(IMAGE_BUILD) bats $(TESTS)
 
-test-$(TEST_DIR)/%.bats: $(TEST_DIR)/%.bats
+test-$(TEST_DIR)/%.bats: build $(TEST_DIR)/%.bats
 	time COMPILE_IMAGE=$(COMPILE_IMAGE) IMAGE=$(IMAGE_BUILD) bats $(TEST_DIR)/$*.bats
 
 .SECONDEXPANSION:
