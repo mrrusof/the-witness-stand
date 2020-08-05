@@ -1,3 +1,8 @@
+# 0.12.0 2020.08.04
+
+- Upgrade Python 2.7 to Python 3.
+- Install numpy in Python sandbox.
+
 # 0.11.0 2020.06.21
 
 - Handle multiple classes in Java.

@@ -1,8 +1,8 @@
 FROM mrrusof/base-sandbox:build
 
-RUN apk --no-cache add python
+RUN apk add --no-cache python3 py-numpy
 
 ENV PRG /tmp/main.py
-ENV CMD python $PRG
+ENV CMD python3 $PRG
 
 CMD ["/run_interpreted.rb"]
