@@ -1,3 +1,7 @@
+# Unreleased
+
+- Base image for Python from Debian Buster Slim w/o numpy.
+
 # 0.12.0 2020.08.04
 
 - Upgrade Python 2.7 to Python 3.

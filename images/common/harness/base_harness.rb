@@ -41,7 +41,7 @@ class BaseHarness
   end
 
   def run_command
-    @stdout, @stderr, @status = Open3.capture3 ENV, "time -o #{time_file_path} #{command}", stdin_data: do_stdin
+    @stdout, @stderr, @status = Open3.capture3 ENV, "time -p -o #{time_file_path} #{command}", stdin_data: do_stdin
     @time = nil
   end
 
@@ -66,7 +66,20 @@ class BaseHarness
   end
 
   def time
-    @time ||= File.read(time_file_path).lines.select{|l| l.match? /real/ }.map{|l| l.gsub(/real\t/, '').chomp }.first
+    @time ||=
+      begin
+        raw_seconds, raw_decimals = File
+                    .read(time_file_path)
+                    .lines.select{|l| l.match? /real/ }
+                    .map{|l| l.gsub(/real +/, '').chomp }
+                    .first
+                    .split('.')
+                    .map(&:to_i)
+        minutes = raw_seconds / 60
+        seconds = raw_seconds % 60
+        decimals = format '%02d', raw_decimals
+        "#{minutes}m #{seconds}.#{decimals}s"
+      end
   end
 
   def base_output_pairs
@@ -91,6 +104,7 @@ class BaseHarness
   end
 
   def run
+    Thread.report_on_exception = false
     validate_env
     validate_input_json
     before_run_command

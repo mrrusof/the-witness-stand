@@ -1,6 +1,4 @@
-FROM mrrusof/base-sandbox:build
-
-RUN apk add --no-cache python3 py-numpy
+FROM mrrusof/python-base-sandbox:build
 
 ENV PRG /tmp/main.py
 ENV CMD python3 $PRG
