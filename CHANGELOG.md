@@ -1,5 +1,6 @@
 # Unreleased
 
+- Create scipy sandbox that also includes numpy and pandas too.
 - Base image for Python from Debian Buster Slim w/o numpy.
 
 # 0.12.0 2020.08.04

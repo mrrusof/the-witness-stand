@@ -10,6 +10,7 @@ javac
 ocaml
 python
 ruby
+scipy
 EOF
 }
 
