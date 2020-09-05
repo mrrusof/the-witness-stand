@@ -14,14 +14,14 @@ class RunHarness < BaseHarness
   end
 
   def program
-    do_program
+    raise 'abstract RunHarness#program'
   end
 
   def stdin
     input_json['stdin']
   end
 
-  def do_validate_input_json
+  def validate_input_json
     abort 'No program given.' if !program
     abort 'No stdin given.' if !stdin
   end

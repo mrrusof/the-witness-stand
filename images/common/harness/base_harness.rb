@@ -24,16 +24,12 @@ class BaseHarness
     @input_json ||= JSON.parse ARGF.read
   end
 
-  # virtual: do_validate_input_json
-
   def validate_input_json
-    do_validate_input_json
+    raise 'abstract BaseHarness#validate_input_json'
   end
 
-  # virtual: do_before_run_command
-
   def before_run_command
-    do_before_run_command
+    raise 'abstract BaseHarness#before_run_command'
   end
 
   def do_stdin

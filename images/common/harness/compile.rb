@@ -26,7 +26,7 @@ class CompileHarness < BaseHarness
     input_json['sourceProgram']
   end
 
-  def do_validate_input_json
+  def validate_input_json
     abort 'No source program given.' if !source_program
   end
 
@@ -34,7 +34,7 @@ class CompileHarness < BaseHarness
     File.write source_program_path, source_program
   end
 
-  def do_before_run_command
+  def before_run_command
     write_source_program
   end
 

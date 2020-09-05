@@ -10,7 +10,7 @@ class RunCompiled < RunHarness
     ENV['PRE']
   end
 
-  def do_program
+  def program
     input_json['compiledProgram']
   end
 
@@ -28,7 +28,7 @@ class RunCompiled < RunHarness
     end
   end
 
-  def do_before_run_command
+  def before_run_command
     write_compiled_program
     maybe_pre_process_compiled_program
   end

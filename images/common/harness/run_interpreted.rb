@@ -4,7 +4,7 @@ require_relative 'run_harness'
 
 class RunInterpreted < RunHarness
 
-  def do_program
+  def program
     input_json['interpretedProgram']
   end
 
@@ -12,7 +12,7 @@ class RunInterpreted < RunHarness
     File.write program_path, program
   end
 
-  def do_before_run_command
+  def before_run_command
     write_program
   end
 

@@ -1,3 +1,7 @@
+# Unreleased
+
+- Declare abstract methods of harness.
+
 # 0.13.0 2020.08.07
 
 - Create scipy sandbox that also includes numpy and pandas too.
