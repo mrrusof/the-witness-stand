@@ -1,5 +1,6 @@
 # Unreleased
 
+- Use Kernel#spawn instead of Open3.capture3 in harness.
 - Declare abstract methods of harness.
 
 # 0.13.0 2020.08.07

@@ -17,5 +17,6 @@ function compiled_program {
 function input_json {
   set -e
   : ${stdin:=''}
-  echo "{ \"compiledProgram\": \"$(compiled_program)\", \"stdin\":\"$stdin\" }"
+  echo "{ \"compiledProgram\": \"$(compiled_program)\" }" | \
+      jshon -s "$stdin" -i stdin
 }

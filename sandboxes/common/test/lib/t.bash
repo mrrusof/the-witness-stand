@@ -4,21 +4,21 @@ function t_fail {
   if [ $# = 3 ]; then
     case "$2" in
       =|=~)
-        fail $(cat <<EOF
+        fail "$(cat <<EOF
 t A $2 B
 A:
 $1
 B:
 $3
 EOF
-)
+)"
       ;;
       *)
-        fail t $@
+        fail "t $@"
       ;;
     esac
   else
-    fail t $@
+    fail "t $@"
   fi
   return 1
 }

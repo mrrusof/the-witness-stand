@@ -11,13 +11,13 @@ class BaseHarness
     ENV['CMD']
   end
 
-  def do_validate_other_env
+  def validate_other_env
     # do nothing by default
   end
 
   def validate_env
     abort 'No command given.' if !command
-    do_validate_other_env
+    validate_other_env
   end
 
   def input_json
@@ -29,24 +29,55 @@ class BaseHarness
   end
 
   def before_run_command
-    raise 'abstract BaseHarness#before_run_command'
-  end
-
-  def do_stdin
-    nil
-  end
-
-  def run_command
-    @stdout, @stderr, @status = Open3.capture3 ENV, "time -p -o #{time_file_path} #{command}", stdin_data: do_stdin
-    @time = nil
-  end
-
-  def do_after_run_command
     # do nothing by default
   end
 
+  def stdin
+    # do nothing by default
+  end
+
+  def run_command
+    stdout_str = nil
+    stderr_str = nil
+    stdin_r, stdin_w = IO.pipe
+    stdout_r, stdout_w = IO.pipe
+    stderr_r, stderr_w = IO.pipe
+    timed_command = "time -p -o #{time_file_path} #{command}"
+    spawn_options = {
+      :in => stdin_r,
+      :out => stdout_w,
+      :err => stderr_w
+    }
+
+    pid = spawn(ENV, timed_command, spawn_options)
+
+    io_threads = [
+      Thread.new {
+        stdin_w.write stdin
+        stdin_w.close
+      },
+      Thread.new {
+        stdout_str = stdout_r.read
+        stdout_r.close
+      },
+      Thread.new {
+        stderr_str = stderr_r.read
+        stderr_r.close
+      }
+    ]
+    Process.wait pid
+    stdin_r.close
+    stdout_w.close
+    stderr_w.close
+    io_threads.each(&:join)
+    @stdout = stdout_str
+    @stderr = stderr_str
+    @status = $?
+    @time = nil
+  end
+
   def after_run_command
-    do_after_run_command
+    # do nothing by default
   end
 
   def stdout

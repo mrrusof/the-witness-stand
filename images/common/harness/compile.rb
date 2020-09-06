@@ -17,7 +17,7 @@ class CompileHarness < BaseHarness
     ENV['PST']
   end
 
-  def do_validate_other_env
+  def validate_other_env
     abort 'No compiled program path given.' if !compiled_program_path
     abort 'No source program path given.' if !source_program_path
   end
@@ -47,7 +47,7 @@ class CompileHarness < BaseHarness
     end
   end
 
-  def do_after_run_command
+  def after_run_command
     maybe_post_process_compiled_program
   end
 
