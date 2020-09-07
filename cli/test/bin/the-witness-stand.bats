@@ -56,7 +56,7 @@ function docker {
 
 @test "$TEST_SUITE: accepts a sandbox name and a container name." {
   run expected_usage_sandbox_container_params
-  actual_output=`echo $output | jshon -e stdout`
+  actual_output=`echo $output | jq '. "stdout"'`
   echo \$output = $output
   [ $status = 0 ]
   [ "$actual_output" = '"hola\n"' ]
@@ -64,7 +64,7 @@ function docker {
 
 @test "$TEST_SUITE: accepts a sandbox name." {
   run expected_usage_sandbox_param
-  actual_output=`echo $output | jshon -e stdout`
+  actual_output=`echo $output | jq '. "stdout"'`
   echo \$output = $output
   [ $status = 0 ]
   [ "$actual_output" = '"hola\n"' ]

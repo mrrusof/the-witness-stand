@@ -28,6 +28,8 @@ $(TEST_DIR)/%.bats: $$(shell INCLUDES_DIR=$(TEST_INCLUDES_DIR) $(ROOT)/common/in
 $(TEST_DIR):
 	mkdir -p $@
 
+$(DOCKER_BTOKEN): $(TODO_ALL_REQUIRE_SANDBOXES_DIRS)
+
 $(TODO_ALL_REQUIRE_SANDBOXES_DIRS): force
 	$(MAKE) -C $@ build
 	touch $@

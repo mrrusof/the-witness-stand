@@ -8,12 +8,12 @@ function output_json {
       shift
       set -e
       [ $# = 0 ] || fail output_json: expected one parameter: '$#' = $#
-      jshon -l <<<"$output"
+      jq length <<<"$output"
     ;;
     value)
       set -e
       [ $# = 2 ] || fail output_json: expected two parameters: '$#' = $#
-      jshon -e "$2" -u <<<"$output"
+      jq -r '. "'"$2"'"' <<<"$output"
     ;;
     *)
       echo output_json: Unknown subcommand $1

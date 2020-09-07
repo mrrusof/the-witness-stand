@@ -1,5 +1,6 @@
 # Unreleased
 
+- Use jq instead of jshon.
 - Use Kernel#spawn instead of Open3.capture3 in harness.
 - Declare abstract methods of harness.
 

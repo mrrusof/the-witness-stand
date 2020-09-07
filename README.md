@@ -6,7 +6,7 @@
 - Bash 4.3
 - Make 4.1
 - Bats 0.4.0
-- jshon 20130901
+- jq 1.5-1-a5b5cbe
 - Ruby 2.4.0
 
 ## Make Targets
