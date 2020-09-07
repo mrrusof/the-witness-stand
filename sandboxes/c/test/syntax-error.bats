@@ -12,8 +12,11 @@ EOF
 
 expected_stderr=$(cat <<"EOF"
 /tmp/main.c: In function 'main':
-/tmp/main.c:5:3: error: expected ';' before 'return'
-   return 0;
-   ^~~~~~
+/tmp/main.c:4:25: error: expected ';' before 'return'
+    4 |   printf("hola mundo\n")
+      |                         ^
+      |                         ;
+    5 |   return 0;
+      |   ~~~~~~                 
 EOF
 )

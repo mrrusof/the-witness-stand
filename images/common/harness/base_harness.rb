@@ -24,6 +24,26 @@ class BaseHarness
     @input_json ||= JSON.parse ARGF.read
   end
 
+  def input_fds_and_contents
+    stdin_hash = if stdin then { 0 => stdin } else {} end
+    (input_json['inputFds'] || {})
+      .map { |k, v| [k.to_i, v] }
+      .to_h
+      .merge(stdin_hash)
+  end
+
+  def input_files_and_contents
+    input_json['inputFiles'] || {}
+  end
+
+  def output_fds
+    (input_json['outputFds'] || []) + [1, 2]
+  end
+
+  def output_files
+    input_json['outputFiles'] || []
+  end
+
   def validate_input_json
     raise 'abstract BaseHarness#validate_input_json'
   end
@@ -33,45 +53,63 @@ class BaseHarness
   end
 
   def stdin
-    # do nothing by default
+    input_json['stdin']
   end
 
   def run_command
-    stdout_str = nil
-    stderr_str = nil
-    stdin_r, stdin_w = IO.pipe
-    stdout_r, stdout_w = IO.pipe
-    stderr_r, stderr_w = IO.pipe
-    timed_command = "time -p -o #{time_file_path} #{command}"
-    spawn_options = {
-      :in => stdin_r,
-      :out => stdout_w,
-      :err => stderr_w
+    spawn_options = {}
+    pipe_endpoints_to_close_after_command = []
+    io_threads = []
+    output_fds_contents = {}
+    input_fds_and_contents.each { |fd, contents|
+      r, w = IO.pipe
+      spawn_options[fd] = r
+      pipe_endpoints_to_close_after_command << r
+      io_threads << Thread.new {
+        begin
+          w.write contents
+        rescue Errno::EPIPE => e
+        end
+        w.close
+      }
     }
+    output_fds.each { |fd|
+      r, w = IO.pipe
+      spawn_options[fd] = w
+      pipe_endpoints_to_close_after_command << w
+      io_threads << Thread.new {
+        output_fds_contents[fd] = nil
+        begin
+          while true
+            output_fds_contents[fd] = (output_fds_contents[fd] || '') + r.readpartial(4096)
+          end
+        rescue EOFError => e
+        end
+        r.close
+      }
+    }
+    input_files_and_contents.each { |file, contents|
+      File.write file, contents, mode: 'w'
+    }
+    timed_command = "time -p -o #{time_file_path} #{command}"
 
     pid = spawn(ENV, timed_command, spawn_options)
 
-    io_threads = [
-      Thread.new {
-        stdin_w.write stdin
-        stdin_w.close
-      },
-      Thread.new {
-        stdout_str = stdout_r.read
-        stdout_r.close
-      },
-      Thread.new {
-        stderr_str = stderr_r.read
-        stderr_r.close
-      }
-    ]
     Process.wait pid
-    stdin_r.close
-    stdout_w.close
-    stderr_w.close
+    pipe_endpoints_to_close_after_command.each(&:close)
     io_threads.each(&:join)
-    @stdout = stdout_str
-    @stderr = stderr_str
+    output_files_contents = output_files
+                              .map { |file|
+                                [file,
+                                 if File.exist? file then
+                                   File.read file
+                                 end]
+                              }
+                              .to_h
+    @stdout = output_fds_contents.delete(1)
+    @stderr = output_fds_contents.delete(2)
+    @output_fds_contents = output_fds_contents
+    @output_files_contents = output_files_contents
     @status = $?
     @time = nil
   end
@@ -86,6 +124,14 @@ class BaseHarness
 
   def stderr
     @stderr
+  end
+
+  def output_fds_contents
+    @output_fds_contents
+  end
+
+  def output_files_contents
+    @output_files_contents
   end
 
   def status
@@ -114,16 +160,18 @@ class BaseHarness
       exitCode: status.exitstatus,
       stdout: stdout,
       stderr: stderr,
+      outputFds: output_fds_contents,
+      outputFiles: output_files_contents,
       wallTime: time
     }
   end
 
-  def do_other_output_pairs
+  def other_output_pairs
     {}
   end
 
   def output_json
-    base_output_pairs.merge do_other_output_pairs
+    base_output_pairs.merge other_output_pairs
   end
 
   def emit_output_json

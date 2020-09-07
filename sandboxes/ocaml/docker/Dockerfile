@@ -1,6 +1,6 @@
 FROM mrrusof/base-sandbox:build
 
-RUN apk --no-cache add ocaml
+RUN apk add --no-cache ocaml ocaml-compiler-libs
 RUN ocamlmktop -thread unix.cma threads.cma str.cma -o ocaml_threads
 
 ENV PRG /tmp/main.ml

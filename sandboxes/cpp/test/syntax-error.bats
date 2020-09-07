@@ -13,8 +13,11 @@ EOF
 
 expected_stderr=$(cat <<"EOF"
 /tmp/main.cpp: In function 'int main()':
-/tmp/main.cpp:6:3: error: expected ';' before 'return'
-   return 0;
-   ^~~~~~
+/tmp/main.cpp:5:25: error: expected ';' before 'return'
+    5 |   cout << "hola mundo\n"
+      |                         ^
+      |                         ;
+    6 |   return 0;
+      |   ~~~~~~                 
 EOF
 )

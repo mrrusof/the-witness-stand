@@ -59,7 +59,7 @@ class CompileHarness < BaseHarness
     end
   end
 
-  def do_other_output_pairs
+  def other_output_pairs
     {
       compiledProgram: compiled_program
     }

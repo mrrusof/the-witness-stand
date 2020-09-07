@@ -1,11 +1,8 @@
+#inline input-json-for-run.bash
 #inline var-is-set.bash
 
-function input_json {
+function program_json_object {
   set -e
   var_is_set interpreted_program
-  : ${stdin:=''}
-  jq -n \
-    --arg stdin "$stdin" \
-    --arg ip "$interpreted_program" \
-    '{stdin: $stdin, interpretedProgram: $ip}'
+  printf '%s' "$interpreted_program" | jq -R --slurp '{interpretedProgram: .}'
 }
