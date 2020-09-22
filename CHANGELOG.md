@@ -1,4 +1,4 @@
-# Unreleased
+# 0.14.0 2020.09.21
 
 - Accept input/output fds/files.
 - Use jq instead of jshon.
