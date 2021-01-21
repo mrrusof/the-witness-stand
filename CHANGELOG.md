@@ -1,3 +1,7 @@
+# Unreleased
+
+- [hack] Install SQLite in Python-based sandboxes.
+
 # 0.14.0 2020.09.21
 
 - Accept input/output fds/files.
