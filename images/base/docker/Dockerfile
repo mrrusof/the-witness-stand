@@ -2,7 +2,7 @@ FROM alpine:3.12
 
 LABEL maintainer ruslanledesmagarza@gmail.com
 
-RUN apk add --no-cache ruby=2.7.1-r3 ruby-json=2.7.1-r3 dumb-init
+RUN apk add --no-cache ruby=2.7.2-r0 ruby-json=2.7.2-r0 dumb-init
 
 COPY *.rb /
 
