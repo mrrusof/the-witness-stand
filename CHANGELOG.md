@@ -1,5 +1,6 @@
 # Unreleased
 
+- Create Javascript sandbox.
 - Upgrade Ruby in base image to 2.7.2.
 
 # 0.15.0 2021.01.21
