@@ -6,7 +6,7 @@ DOCKERHUB_USER=mrrusof
 VERSION != $(ROOT)/common/version.sh
 TAG ?= $(VERSION)
 IMAGE=$(DOCKERHUB_USER)/$(IMAGE_REPO):$(TAG)
-IMAGE_BUILD=$(DOCKERHUB_USER)/$(IMAGE_REPO):build
+IMAGE_UNRELEASED=$(DOCKERHUB_USER)/$(IMAGE_REPO):build
 
 IMAGES_ROOT=$(ROOT)/images
 REQUIRE_IMAGES_DIRS=$(addprefix $(IMAGES_ROOT)/,$(REQUIRE_IMAGES))
@@ -25,7 +25,7 @@ all build: $(DOCKER_BTOKEN)
 
 $(DOCKER_BTOKEN): $(TODO_REQUIRE_IMAGES_DIRS) $(DOCKER_SRC_FILES) | $(BUILD_DIR) $(DOCKER_BUILD_DIR)
 	cp $(DOCKER_SRC_FILES) $(DOCKER_BUILD_DIR)
-	time docker build --tag $(IMAGE_BUILD) --tag $(IMAGE) $(DOCKER_BUILD_DIR)
+	time docker build --tag $(IMAGE_UNRELEASED) --tag $(IMAGE) $(DOCKER_BUILD_DIR)
 	touch $@
 
 $(BUILD_DIR) $(DOCKER_BUILD_DIR):
@@ -39,7 +39,7 @@ force:
 
 clean:
 	rm -rf $(BUILD_DIR)
-	docker rmi --force $(IMAGE) $(IMAGE_BUILD)
+	docker rmi --force $(IMAGE) $(IMAGE_UNRELEASED)
 	@echo ""
 
 .PHONY: all build clean force

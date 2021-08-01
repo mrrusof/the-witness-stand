@@ -16,10 +16,10 @@ TEST_INCLUDES_DIR=$(CURDIR)/../common/test
 TESTS=$(addprefix $(TEST_DIR)/,$(shell cd $(TEST_SRC_DIR) && echo *.bats))
 
 test: build $(TESTS) | $(ALL_REQUIRE_SANDBOXES_DIRS)
-	time COMPILE_IMAGE=$(COMPILE_IMAGE) IMAGE=$(IMAGE_BUILD) bats $(TESTS)
+	time COMPILE_IMAGE=$(COMPILE_IMAGE) IMAGE=$(IMAGE_UNRELEASED) bats $(TESTS)
 
-test-$(TEST_DIR)/%.bats: build $(TEST_DIR)/%.bats
-	time COMPILE_IMAGE=$(COMPILE_IMAGE) IMAGE=$(IMAGE_BUILD) bats $(TEST_DIR)/$*.bats
+test/%: build $(TEST_DIR)/%.bats | $(ALL_REQUIRE_SANDBOXES_DIRS)
+	time COMPILE_IMAGE=$(COMPILE_IMAGE) IMAGE=$(IMAGE_UNRELEASED) bats $(TEST_DIR)/$*.bats
 
 .SECONDEXPANSION:
 $(TEST_DIR)/%.bats: $$(shell INCLUDES_DIR=$(TEST_INCLUDES_DIR) $(ROOT)/common/inline.rb --deps $(TEST_SRC_DIR)/$$*.bats) | $(TEST_DIR)
@@ -28,7 +28,7 @@ $(TEST_DIR)/%.bats: $$(shell INCLUDES_DIR=$(TEST_INCLUDES_DIR) $(ROOT)/common/in
 $(TEST_DIR):
 	mkdir -p $@
 
-$(DOCKER_BTOKEN): $(TODO_ALL_REQUIRE_SANDBOXES_DIRS)
+$(DOCKER_BTOKEN): $(ALL_REQUIRE_SANDBOXES_DIRS)
 
 $(TODO_ALL_REQUIRE_SANDBOXES_DIRS): force
 	$(MAKE) -C $@ build
@@ -42,4 +42,4 @@ push: build
 	  echo Tag is unreleased, skip pushing image.; \
 	fi
 
-.PHONY: push test test-$(TEST_DIR)/%.bats
+.PHONY: push test
