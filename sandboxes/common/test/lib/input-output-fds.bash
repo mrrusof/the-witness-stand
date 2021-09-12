@@ -8,6 +8,8 @@ function input_fds_json_object {
   jq --slurp '. | add' $parts_tmp
 }
 
+declare -g output_fds
+
 function output_fds_json_array {
   : ${output_fds:=''}
   echo "[$output_fds]" | sed 's/ /, /g'

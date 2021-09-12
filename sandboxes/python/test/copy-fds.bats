@@ -18,9 +18,9 @@ copy_fds(87, 99)
 EOF
 )
 
-stdin=$(</dev/urandom tr -dc 'A-Za-z0-9\n' | head -c 250000)
-input_fds[86]=$(</dev/urandom tr -dc 'A-Za-z0-9\n' | head -c 250000)
-input_fds[87]=$(</dev/urandom tr -dc 'A-Za-z0-9\n' | head -c 250000)
+stdin=$(</dev/urandom tr -dc 'A-Za-z0-9\n' | head -c 1000000)
+input_fds[86]=$(</dev/urandom tr -dc 'A-Za-z0-9\n' | head -c 1000000)
+input_fds[87]=$(</dev/urandom tr -dc 'A-Za-z0-9\n' | head -c 1000000)
 input_fds[88]=hola
 
 expected_stdout=$(cat <<EOF
