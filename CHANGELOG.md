@@ -1,3 +1,8 @@
+# unreleased
+
+- Ouput debug information when env var TWS_DEBUG=true.
+- Harness efficiently reads output fds.
+
 # 0.17.0 2021.03.11
 
 - Add JSDOM to Javascript sandbox.

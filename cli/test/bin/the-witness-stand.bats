@@ -82,6 +82,14 @@ function docker {
   has_usage "$output"
 }
 
+@test "$TEST_SUITE: outputs debug information when env var TWS_DEBUG='true'" {
+  TWS_DEBUG=true run expected_usage_sandbox_param
+  echo \$output = $output
+  has_debug_output=`echo $output | jq 'has("debug")'`
+  [ $status = 0 ]
+  [ "$has_debug_output" = true ]
+}
+
 @test "$TEST_SUITE: downloads sandboxes with option {-d,--download}." {
   export -f docker
   run the-witness-stand -d

@@ -169,25 +169,50 @@ class BaseHarness
     }
   end
 
+  def debug_output_pairs
+    if ENV['TWS_DEBUG'] == 'true'
+      {
+        debug: {
+          wallTimes: debug_wall_times
+        }
+      }
+    else
+      {}
+    end
+  end
+
   def other_output_pairs
     {}
   end
 
   def output_json
-    base_output_pairs.merge other_output_pairs
+    base_output_pairs
+      .merge(debug_output_pairs)
+      .merge(other_output_pairs)
   end
 
   def emit_output_json
     puts JSON.pretty_generate output_json
   end
 
+  def debug_wall_times
+    @debug_wall_times ||= {}
+  end
+
+  def measure tag
+    start_time = Time.now
+    yield
+    end_time = Time.now
+    debug_wall_times[tag] = end_time - start_time
+  end
+
   def run
     Thread.report_on_exception = false
-    validate_env
-    validate_input_json
-    before_run_command
-    run_command
-    after_run_command
+    measure(:validate_env) { validate_env }
+    measure(:validate_input_json) { validate_input_json }
+    measure(:before_run_command) { before_run_command }
+    measure(:run_command) { run_command }
+    measure(:after_run_command) { after_run_command }
     emit_output_json
   end
 

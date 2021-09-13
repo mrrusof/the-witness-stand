@@ -1,7 +1,5 @@
 #inline $INCLUDES_DIR/test-templates/run-interpreted-positive.bats
 
-TIMEOUT=30
-
 interpreted_program=$(cat <<'EOF'
 import re
 import sys
