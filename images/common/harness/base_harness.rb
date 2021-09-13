@@ -78,14 +78,17 @@ class BaseHarness
       spawn_options[fd] = w
       pipe_endpoints_to_close_after_command << w
       io_threads << Thread.new {
-        output_fds_contents[fd] = nil
+        read_something = false
+        contents = ''
         begin
           while true
-            output_fds_contents[fd] = (output_fds_contents[fd] || '') + r.readpartial(4096)
+            contents.concat r.readpartial(4096)
+            read_something = true
           end
         rescue EOFError => e
         end
         r.close
+        output_fds_contents[fd] = if read_something then contents else nil end
       }
     }
     input_files_and_contents.each { |file, contents|

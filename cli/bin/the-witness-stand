@@ -41,7 +41,7 @@ while true; do
 done
 
 if [ $# = 1 ]; then
-  CONTAINER_NAME=`mktemp /tmp/"$1"-XXXXXXXXXX | sed 's#/tmp/##'`
+  CONTAINER_NAME=`mktemp --dry-run /tmp/"$1"-XXXXXXXXXX | sed 's#/tmp/##'`
 elif [ $# = 2 ]; then
   CONTAINER_NAME="$2"
 else
