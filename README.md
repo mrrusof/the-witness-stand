@@ -1,4 +1,4 @@
-# The Witness Stand [![Build Status](https://travis-ci.org/mrrusof/the-witness-stand.svg?branch=master)](https://travis-ci.org/mrrusof/the-witness-stand)
+# The Witness Stand [![Build Status](https://app.travis-ci.com/mrrusof/the-witness-stand.svg?branch=master)](https://travis-ci.com/github/mrrusof/the-witness-stand)
 
 ## Requirements
 
