@@ -1,5 +1,6 @@
 # Unreleased
 
+- Upgrade base image to Ruby 3.1.2 but skip Javascript test copy-fds.
 - Test reading 1M ints for Python sandbox.
 
 # 0.18.0 2021.09.27
